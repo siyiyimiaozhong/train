@@ -37,6 +37,7 @@ public class MemberApplication {
      */
     private static String getProjectAddress(ConfigurableEnvironment environment) {
         String port = environment.getProperty("server.port");
+        String contextPath = environment.getProperty("server.servlet.context-path");
         List<String> ips = new LinkedList<>();
         ips.add("127.0.0.1");
         try {
@@ -44,6 +45,6 @@ public class MemberApplication {
             ips.add(inetAddress.getHostAddress());
         } catch (Exception e) {
         }
-        return ips.stream().map(ip -> String.format("http://%s:%s", ip, port)).collect(Collectors.joining(" "));
+        return ips.stream().map(ip -> String.format("http://%s:%s/%s", ip, port, contextPath)).collect(Collectors.joining(" "));
     }
 }

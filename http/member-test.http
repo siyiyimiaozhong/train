@@ -1,4 +1,10 @@
-GET http://localhost:8000/member/test/a
+GET http://localhost:8000/member/test
 Accept: application/json
+
+### register
+POST http://localhost:8000/member/member/register
+Content-Type: application/x-www-form-urlencoded
+
+mobile=demo
 
 ###

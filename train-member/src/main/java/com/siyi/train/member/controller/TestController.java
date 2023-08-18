@@ -1,5 +1,6 @@
-package com.siyi.member.controller;
+package com.siyi.train.member.controller;
 
+import com.siyi.train.member.service.MemberService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,11 +13,17 @@ import org.springframework.web.bind.annotation.RestController;
  * @Version 1.0.0
  */
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/")
 public class TestController {
 
-    @GetMapping("/a")
-    public String a() {
-        return "a";
+    private final MemberService memberService;
+
+    public TestController(MemberService memberService) {
+        this.memberService = memberService;
+    }
+
+    @GetMapping("/test")
+    public int a() {
+        return this.memberService.count();
     }
 }

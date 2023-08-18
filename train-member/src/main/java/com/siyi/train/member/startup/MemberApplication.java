@@ -1,6 +1,7 @@
-package com.siyi.member.startup;
+package com.siyi.train.member.startup;
 
 import lombok.extern.slf4j.Slf4j;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @SpringBootApplication
 @ComponentScan("com.siyi")
+@MapperScan("com.siyi.train.member.mapper")
 public class MemberApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext applicationContext = SpringApplication.run(MemberApplication.class, args);
@@ -45,6 +47,8 @@ public class MemberApplication {
             ips.add(inetAddress.getHostAddress());
         } catch (Exception e) {
         }
-        return ips.stream().map(ip -> String.format("http://%s:%s/%s", ip, port, contextPath)).collect(Collectors.joining(" "));
+        return ips.stream()
+                .map(ip -> String.format("http://%s:%s%s", ip, port, null == contextPath ? "" : contextPath))
+                .collect(Collectors.joining(" "));
     }
 }

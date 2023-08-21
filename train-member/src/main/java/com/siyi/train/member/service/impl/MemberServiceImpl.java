@@ -3,6 +3,7 @@ package com.siyi.train.member.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import com.siyi.train.common.constant.ResultCode;
 import com.siyi.train.common.exception.BusinessException;
+import com.siyi.train.common.util.SnowUtil;
 import com.siyi.train.member.dto.MemberDto;
 import com.siyi.train.member.mapper.MemberMapper;
 import com.siyi.train.member.pojo.Member;
@@ -44,7 +45,7 @@ public class MemberServiceImpl implements MemberService {
         }
 
         Member member = new Member();
-        member.setId(System.currentTimeMillis());
+        member.setId(SnowUtil.getSnowflakeNextId());
         member.setMobile(mobile);
 
         this.memberMapper.insert(member);

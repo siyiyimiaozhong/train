@@ -38,6 +38,8 @@ public enum ResultCode {
     ACCOUNT_DISABLED(false, 20006, "该账号已被禁用"),
     PASSWORD_ERROR(false, 20007, "密码错误"),
     MEMBER_MOBILE_EXIST(false, 20008, "手机号已注册"),
+    MEMBER_MOBILE_NOT_EXIST(false, 20009, "请先获取短信验证码"),
+    MEMBER_MOBILE_CODE_ERROR(false, 20010, "短信验证码错误"),
     ;
 
     /**

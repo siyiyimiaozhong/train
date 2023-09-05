@@ -27,6 +27,7 @@
         <hutool.version>5.7.22</hutool.version>
         <mybatis-spring.version>3.0.2</mybatis-spring.version>
         <mysql.version>8.0.22</mysql.version>
+        <pagehelper.version>1.4.6</pagehelper.version>
     </properties>
 
     <dependencies>
@@ -69,6 +70,12 @@
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql.version}</version>
+            </dependency>
+            <!-- 集成pagehelper -->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

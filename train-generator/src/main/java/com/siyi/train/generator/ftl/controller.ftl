@@ -1,4 +1,4 @@
-package com.siyi.train.${module}.controller.admin;
+package com.siyi.train.${module}.controller;
 
 import com.siyi.train.common.vo.Result;
 import com.siyi.train.common.vo.PageVo;
@@ -6,17 +6,16 @@ import com.siyi.train.${module}.dto.${Domain}QueryDto;
 import com.siyi.train.${module}.dto.${Domain}SaveDto;
 import com.siyi.train.${module}.vo.${Domain}QueryVo;
 import com.siyi.train.${module}.service.${Domain}Service;
-import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/admin/${do_main}")
-public class ${Domain}AdminController {
+public class ${Domain}Controller {
 
     private final ${Domain}Service ${domain}Service;
 
-    public ${Domain}AdminController(${Domain}Service ${domain}Service) {
+    public ${Domain}Controller(${Domain}Service ${domain}Service) {
         this.${domain}Service = ${domain}Service;
     }
 
@@ -35,7 +34,7 @@ public class ${Domain}AdminController {
     @DeleteMapping("/delete/{id}")
     public Result<Object> delete(@PathVariable Long id) {
         ${domain}Service.delete(id);
-        return list
+        return Result.success();
     }
 
 }

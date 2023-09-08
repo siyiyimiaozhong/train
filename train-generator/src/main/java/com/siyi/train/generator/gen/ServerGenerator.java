@@ -1,5 +1,6 @@
 package com.siyi.train.generator.gen;
 
+import cn.hutool.core.date.DateUtil;
 import com.siyi.train.generator.pojo.Field;
 import com.siyi.train.generator.util.DbUtil;
 import com.siyi.train.generator.util.FreemarkerUtil;
@@ -22,9 +23,9 @@ import java.util.*;
  */
 public class ServerGenerator {
     static boolean readOnly = false;
-    static String vuePath = "admin/src/views/main/";
-    static String serverPath = "[module]/src/main/java/com/jiawa/train/[module]/";
-    static String pomPath = "generator/pom.xml";
+    static String vuePath = "train-admin-web/src/views/main/";
+    static String serverPath = "[module]/src/main/java/com/siyi/train/[module]/";
+    static String pomPath = "train-generator/pom.xml";
     static String module = "";
     // static {
     //     new File(serverPath).mkdirs();
@@ -36,12 +37,12 @@ public class ServerGenerator {
         // 比如generator-config-member.xml，得到module = member
         module = generatorPath.replace("src/main/resources/generator-config-", "").replace(".xml", "");
         System.out.println("module: " + module);
-        serverPath = serverPath.replace("[module]", module);
+        serverPath = "train-" + serverPath.replace("[module]", module);
         new File(serverPath).mkdirs();
         System.out.println("servicePath: " + serverPath);
 
         // 读取table节点
-        Document document = new SAXReader().read("generator/" + generatorPath);
+        Document document = new SAXReader().read("train-generator/" + generatorPath);
         Node table = document.selectSingleNode("//table");
         System.out.println(table);
         Node tableName = table.selectSingleNode("@tableName");
@@ -81,13 +82,15 @@ public class ServerGenerator {
         param.put("fieldList", fieldList);
         param.put("typeSet", typeSet);
         param.put("readOnly", readOnly);
+        param.put("generatorTime", DateUtil.now());
         System.out.println("组装参数：" + param);
 
         gen(Domain, param, "service", "service");
-        gen(Domain, param, "controller/admin", "adminController");
-        gen(Domain, param, "req", "saveReq");
-        gen(Domain, param, "req", "queryReq");
-        gen(Domain, param, "resp", "queryResp");
+        gen(Domain, param, "service/impl", "serviceImpl");
+        gen(Domain, param, "controller", "controller");
+        gen(Domain, param, "dto", "saveDto");
+        gen(Domain, param, "dto", "queryDto");
+        gen(Domain, param, "vo", "queryVo");
 
         genVue(do_main, param);
     }

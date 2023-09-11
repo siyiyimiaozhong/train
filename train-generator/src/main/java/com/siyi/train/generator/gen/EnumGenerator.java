@@ -1,6 +1,7 @@
 package com.siyi.train.generator.gen;
 
 import cn.hutool.core.util.StrUtil;
+import com.siyi.train.business.constant.SeatColEnum;
 import com.siyi.train.business.constant.SeatTypeEnum;
 import com.siyi.train.business.constant.TrainTypeEnum;
 import com.siyi.train.member.constant.PassengerTypeEnum;
@@ -33,6 +34,7 @@ public class EnumGenerator {
             toJson(PassengerTypeEnum.class, bufferObject, bufferArray);
             toJson(TrainTypeEnum.class, bufferObject, bufferArray);
             toJson(SeatTypeEnum.class, bufferObject, bufferArray);
+            toJson(SeatColEnum.class, bufferObject, bufferArray);
 
             StringBuffer buffer = bufferObject.append("\r\n").append(bufferArray);
             writeJs(buffer);

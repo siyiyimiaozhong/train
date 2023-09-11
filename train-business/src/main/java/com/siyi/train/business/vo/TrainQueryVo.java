@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class StationQueryVo implements Serializable {
+public class TrainQueryVo implements Serializable {
 
     /**
      * id
@@ -22,19 +22,46 @@ public class StationQueryVo implements Serializable {
     private Long id;
 
     /**
-     * 站名
+     * 车次编号
      */
-    private String name;
+    private String code;
 
     /**
-     * 站名拼音
+     * 车次类型|枚举[TrainTypeEnum]
      */
-    private String namePinyin;
+    private String type;
 
     /**
-     * 站名拼音首字母
+     * 始发站
      */
-    private String namePy;
+    private String start;
+
+    /**
+     * 始发站拼音
+     */
+    private String startPinyin;
+
+    /**
+     * 出发时间
+     */
+    @JsonFormat(pattern = "HH:mm:ss",timezone = "GMT+8")
+    private Date startTime;
+
+    /**
+     * 终点站
+     */
+    private String end;
+
+    /**
+     * 终点站拼音
+     */
+    private String endPinyin;
+
+    /**
+     * 到站时间
+     */
+    @JsonFormat(pattern = "HH:mm:ss",timezone = "GMT+8")
+    private Date endTime;
 
     /**
      * 新增时间

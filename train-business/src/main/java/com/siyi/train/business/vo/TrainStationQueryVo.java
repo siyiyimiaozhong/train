@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,13 +14,23 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class StationQueryVo implements Serializable {
+public class TrainStationQueryVo implements Serializable {
 
     /**
      * id
      */
     @JsonSerialize(using= ToStringSerializer.class)
     private Long id;
+
+    /**
+     * 车次编号
+     */
+    private String trainCode;
+
+    /**
+     * 站序
+     */
+    private Integer index;
 
     /**
      * 站名
@@ -32,9 +43,27 @@ public class StationQueryVo implements Serializable {
     private String namePinyin;
 
     /**
-     * 站名拼音首字母
+     * 进站时间
      */
-    private String namePy;
+    @JsonFormat(pattern = "HH:mm:ss",timezone = "GMT+8")
+    private Date inTime;
+
+    /**
+     * 出站时间
+     */
+    @JsonFormat(pattern = "HH:mm:ss",timezone = "GMT+8")
+    private Date outTime;
+
+    /**
+     * 停站时长
+     */
+    @JsonFormat(pattern = "HH:mm:ss",timezone = "GMT+8")
+    private Date stopTime;
+
+    /**
+     * 里程（公里）|从上一站到本站的距离
+     */
+    private BigDecimal km;
 
     /**
      * 新增时间

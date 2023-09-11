@@ -1,9 +1,11 @@
 package com.siyi.train.business.startup;
 
 import lombok.extern.slf4j.Slf4j;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 import java.net.InetAddress;
@@ -19,6 +21,8 @@ import java.util.stream.Collectors;
  * @Version 1.0.0
  */
 @Slf4j
+@ComponentScan("com.siyi")
+@MapperScan("com.siyi.train.business.mapper")
 @SpringBootApplication
 public class BusinessApplication {
     public static void main(String[] args) {

@@ -21,19 +21,19 @@ public class ${Domain}Controller {
 
     @PostMapping("/save")
     public Result<Object> save(@Valid @RequestBody ${Domain}SaveDto dto) {
-        ${domain}Service.save(dto);
+        this.${domain}Service.save(dto);
         return Result.success();
     }
 
     @GetMapping("/query-list")
-    public Result<PageVo<${Domain}QueryVo>> queryList(@Valid ${Domain}QueryDto dto) {
-        PageVo<${Domain}QueryVo> list = ${domain}Service.queryList(dto);
+    public Result<PageVo<${Domain}QueryVo>> queryList(@Valid @RequestBody ${Domain}QueryDto dto) {
+        PageVo<${Domain}QueryVo> list = this.${domain}Service.queryList(dto);
         return Result.success(list);
     }
 
     @DeleteMapping("/delete/{id}")
     public Result<Object> delete(@PathVariable Long id) {
-        ${domain}Service.delete(id);
+        this.${domain}Service.delete(id);
         return Result.success();
     }
 

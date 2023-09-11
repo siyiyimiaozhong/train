@@ -8,6 +8,6 @@ import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
-public class StationQueryDto extends PageDto implements Serializable {
+public class TrainStationQueryDto extends PageDto implements Serializable {
 
 }

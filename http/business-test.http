@@ -1,0 +1,4 @@
+GET http://localhost:8002/business/admin/station/hello
+Accept: application/json
+
+###

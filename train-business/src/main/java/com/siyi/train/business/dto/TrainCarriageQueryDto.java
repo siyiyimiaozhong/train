@@ -9,5 +9,5 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 public class TrainCarriageQueryDto extends PageDto implements Serializable {
-
+    private String trainCode;
 }

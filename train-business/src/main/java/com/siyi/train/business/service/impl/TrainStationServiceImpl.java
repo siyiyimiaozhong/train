@@ -19,19 +19,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.date.DateTime;
-import cn.hutool.core.util.ObjectUtil;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.siyi.train.common.vo.PageVo;
-import com.siyi.train.common.util.SnowUtil;
-
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-
 @Slf4j
 @Service
 public class TrainStationServiceImpl implements TrainStationService {
@@ -60,8 +47,12 @@ public class TrainStationServiceImpl implements TrainStationService {
     @Override
     public PageVo<TrainStationQueryVo> queryList(TrainStationQueryDto dto) {
         TrainStationExample trainStationExample = new TrainStationExample();
-        trainStationExample.setOrderByClause("id desc");
+        trainStationExample.setOrderByClause("train_code asc, `index` asc");
         TrainStationExample.Criteria criteria = trainStationExample.createCriteria();
+
+        if (ObjectUtil.isNotEmpty(dto.getTrainCode())) {
+            criteria.andTrainCodeEqualTo(dto.getTrainCode());
+        }
 
         log.info("查询页码：{}", dto.getPage());
         log.info("每页条数：{}", dto.getSize());

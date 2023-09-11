@@ -26,7 +26,7 @@ public class ${Domain}Controller {
     }
 
     @GetMapping("/query-list")
-    public Result<PageVo<${Domain}QueryVo>> queryList(@Valid @RequestBody ${Domain}QueryDto dto) {
+    public Result<PageVo<${Domain}QueryVo>> queryList(@Valid ${Domain}QueryDto dto) {
         PageVo<${Domain}QueryVo> list = this.${domain}Service.queryList(dto);
         return Result.success(list);
     }

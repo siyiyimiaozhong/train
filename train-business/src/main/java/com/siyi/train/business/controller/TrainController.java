@@ -1,5 +1,6 @@
 package com.siyi.train.business.controller;
 
+import com.siyi.train.business.vo.StationQueryVo;
 import com.siyi.train.common.vo.Result;
 import com.siyi.train.common.vo.PageVo;
 import com.siyi.train.business.dto.TrainQueryDto;
@@ -8,6 +9,8 @@ import com.siyi.train.business.vo.TrainQueryVo;
 import com.siyi.train.business.service.TrainService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/admin/train")
@@ -35,6 +38,12 @@ public class TrainController {
     public Result<Object> delete(@PathVariable Long id) {
         this.trainService.delete(id);
         return Result.success();
+    }
+
+    @GetMapping("/query-all")
+    public Result<List<TrainQueryVo>> queryList() {
+        List<TrainQueryVo> list = this.trainService.queryAll();
+        return Result.success(list);
     }
 
 }

@@ -9,6 +9,8 @@ import com.siyi.train.common.vo.Result;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/admin/station")
 public class StationController {
@@ -35,5 +37,11 @@ public class StationController {
     public Result<Object> delete(@PathVariable Long id) {
         this.stationService.delete(id);
         return Result.success();
+    }
+
+    @GetMapping("/query-all")
+    public Result<List<StationQueryVo>> queryList() {
+        List<StationQueryVo> list = stationService.queryAll();
+        return Result.success(list);
     }
 }

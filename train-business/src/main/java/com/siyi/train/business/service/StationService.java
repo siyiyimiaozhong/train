@@ -5,6 +5,8 @@ import com.siyi.train.business.dto.StationQueryDto;
 import com.siyi.train.business.dto.StationSaveDto;
 import com.siyi.train.business.vo.StationQueryVo;
 
+import java.util.List;
+
 /**
 * @ClassName: PassengerService
 * @Auther: Chengxin Zhang
@@ -20,4 +22,5 @@ public interface StationService {
 
     void delete(Long id);
 
+    List<StationQueryVo> queryAll();
 }

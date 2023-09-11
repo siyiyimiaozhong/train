@@ -19,19 +19,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.date.DateTime;
-import cn.hutool.core.util.ObjectUtil;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.siyi.train.common.vo.PageVo;
-import com.siyi.train.common.util.SnowUtil;
-
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-
 @Slf4j
 @Service
 public class TrainServiceImpl implements TrainService {
@@ -83,6 +70,14 @@ public class TrainServiceImpl implements TrainService {
     @Override
     public void delete(Long id) {
         this.trainMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public List<TrainQueryVo> queryAll() {
+        TrainExample trainExample = new TrainExample();
+        trainExample.setOrderByClause("code asc");
+        List<Train> trains = this.trainMapper.selectByExample(trainExample);
+        return BeanUtil.copyToList(trains, TrainQueryVo.class);
     }
 
 }

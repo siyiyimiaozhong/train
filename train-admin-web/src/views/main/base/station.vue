@@ -28,22 +28,23 @@
            ok-text="确认" cancel-text="取消">
     <a-form :model="station" :label-col="{span: 4}" :wrapper-col="{ span: 20 }">
       <a-form-item label="站名">
-        <a-input v-model:value="station.name" />
+        <a-input v-model:value="station.name"/>
       </a-form-item>
       <a-form-item label="站名拼音">
-        <a-input v-model:value="station.namePinyin" />
+        <a-input v-model:value="station.namePinyin" disabled/>
       </a-form-item>
-      <a-form-item label="站名拼音首字母">
-        <a-input v-model:value="station.namePy" />
+      <a-form-item label="拼音首字母">
+        <a-input v-model:value="station.namePy" disabled/>
       </a-form-item>
     </a-form>
   </a-modal>
 </template>
 
 <script>
-import { defineComponent, ref, onMounted } from 'vue';
+import {defineComponent, onMounted, ref, watch} from 'vue';
 import {notification} from "ant-design-vue";
 import axios from "axios";
+import {pinyin} from "pinyin-pro";
 
 export default defineComponent({
   name: "station-view",
@@ -66,26 +67,37 @@ export default defineComponent({
     });
     let loading = ref(false);
     const columns = [
-    {
-      title: '站名',
-      dataIndex: 'name',
-      key: 'name',
-    },
-    {
-      title: '站名拼音',
-      dataIndex: 'namePinyin',
-      key: 'namePinyin',
-    },
-    {
-      title: '站名拼音首字母',
-      dataIndex: 'namePy',
-      key: 'namePy',
-    },
-    {
-      title: '操作',
-      dataIndex: 'operation'
-    }
+      {
+        title: '站名',
+        dataIndex: 'name',
+        key: 'name',
+      },
+      {
+        title: '站名拼音',
+        dataIndex: 'namePinyin',
+        key: 'namePinyin',
+      },
+      {
+        title: '站名拼音首字母',
+        dataIndex: 'namePy',
+        key: 'namePy',
+      },
+      {
+        title: '操作',
+        dataIndex: 'operation'
+      }
     ];
+
+    // http://pinyin-pro.cn/
+    watch(() => station.value.name, () => {
+      if (Tool.isNotEmpty(station.value.name)) {
+        station.value.namePinyin = pinyin(station.value.name, {toneType: 'none'}).replaceAll(" ", "");
+        station.value.namePy = pinyin(station.value.name, {pattern: 'first', toneType: 'none'}).replaceAll(" ", "");
+      } else {
+        station.value.namePinyin = "";
+        station.value.namePy = "";
+      }
+    }, {immediate: true});
 
     const onAdd = () => {
       station.value = {};
@@ -155,12 +167,11 @@ export default defineComponent({
       });
     };
 
-    const handleTableChange = (page) => {
-      // console.log("看看自带的分页参数都有啥：" + JSON.stringify(page));
-      pagination.value.pageSize = page.pageSize;
+    const handleTableChange = (pagination) => {
+      // console.log("看看自带的分页参数都有啥：" + pagination);
       handleQuery({
-        page: page.current,
-        size: page.pageSize
+        page: pagination.current,
+        size: pagination.pageSize
       });
     };
 

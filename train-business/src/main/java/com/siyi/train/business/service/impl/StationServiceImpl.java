@@ -19,19 +19,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.date.DateTime;
-import cn.hutool.core.util.ObjectUtil;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.siyi.train.common.vo.PageVo;
-import com.siyi.train.common.util.SnowUtil;
-
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-
 @Slf4j
 @Service
 public class StationServiceImpl implements StationService {
@@ -61,7 +48,6 @@ public class StationServiceImpl implements StationService {
     public PageVo<StationQueryVo> queryList(StationQueryDto dto) {
         StationExample stationExample = new StationExample();
         stationExample.setOrderByClause("id desc");
-        StationExample.Criteria criteria = stationExample.createCriteria();
 
         log.info("查询页码：{}", dto.getPage());
         log.info("每页条数：{}", dto.getSize());
@@ -83,6 +69,14 @@ public class StationServiceImpl implements StationService {
     @Override
     public void delete(Long id) {
         this.stationMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public List<StationQueryVo> queryAll() {
+        StationExample stationExample = new StationExample();
+        stationExample.setOrderByClause("name_pinyin asc");
+        List<Station> stationList = this.stationMapper.selectByExample(stationExample);
+        return BeanUtil.copyToList(stationList, StationQueryVo.class);
     }
 
 }

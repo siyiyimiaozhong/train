@@ -1,6 +1,5 @@
 package com.siyi.train.business.dto;
 
-import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -9,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -35,20 +35,10 @@ public class TrainCarriageSaveDto implements Serializable {
     @NotBlank(message = "【座位类型】不能为空")
     private String seatType;
     /**
-    * 座位数
-    */
-    @NotNull(message = "【座位数】不能为空")
-    private Integer seatCount;
-    /**
     * 排数
     */
     @NotNull(message = "【排数】不能为空")
     private Integer rowCount;
-    /**
-    * 列数
-    */
-    @NotNull(message = "【列数】不能为空")
-    private Integer colCount;
     /**
     * 新增时间
     */

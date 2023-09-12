@@ -1,9 +1,12 @@
 package com.siyi.train.business.service;
 
+import com.siyi.train.business.pojo.TrainCarriage;
 import com.siyi.train.common.vo.PageVo;
 import com.siyi.train.business.dto.TrainCarriageQueryDto;
 import com.siyi.train.business.dto.TrainCarriageSaveDto;
 import com.siyi.train.business.vo.TrainCarriageQueryVo;
+
+import java.util.List;
 
 /**
 * @ClassName: PassengerService
@@ -20,4 +23,5 @@ public interface TrainCarriageService {
 
     void delete(Long id);
 
+    List<TrainCarriage> selectByTrainCode(String trainCode);
 }

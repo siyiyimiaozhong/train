@@ -1,6 +1,6 @@
 package com.siyi.train.business.controller;
 
-import com.siyi.train.business.vo.StationQueryVo;
+import com.siyi.train.business.service.TrainSeatService;
 import com.siyi.train.common.vo.Result;
 import com.siyi.train.common.vo.PageVo;
 import com.siyi.train.business.dto.TrainQueryDto;
@@ -17,9 +17,11 @@ import java.util.List;
 public class TrainController {
 
     private final TrainService trainService;
+    private final TrainSeatService trainSeatService;
 
-    public TrainController(TrainService trainService) {
+    public TrainController(TrainService trainService, TrainSeatService trainSeatService) {
         this.trainService = trainService;
+        this.trainSeatService = trainSeatService;
     }
 
     @PostMapping("/save")
@@ -44,6 +46,12 @@ public class TrainController {
     public Result<List<TrainQueryVo>> queryList() {
         List<TrainQueryVo> list = this.trainService.queryAll();
         return Result.success(list);
+    }
+
+    @GetMapping("/gen-seat/{trainCode}")
+    public Result<Object> genSeat(@PathVariable String trainCode) {
+        this.trainSeatService.genTrainSeat(trainCode);
+        return Result.success();
     }
 
 }

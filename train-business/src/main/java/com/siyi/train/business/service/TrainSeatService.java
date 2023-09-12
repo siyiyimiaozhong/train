@@ -4,6 +4,7 @@ import com.siyi.train.common.vo.PageVo;
 import com.siyi.train.business.dto.TrainSeatQueryDto;
 import com.siyi.train.business.dto.TrainSeatSaveDto;
 import com.siyi.train.business.vo.TrainSeatQueryVo;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
 * @ClassName: PassengerService
@@ -20,4 +21,6 @@ public interface TrainSeatService {
 
     void delete(Long id);
 
+    @Transactional
+    void genTrainSeat(String trainCode);
 }

@@ -1,10 +1,12 @@
 package com.siyi.train.business.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.siyi.train.business.constant.SeatColEnum;
 import com.siyi.train.business.dto.TrainCarriageQueryDto;
 import com.siyi.train.business.dto.TrainCarriageSaveDto;
 import com.siyi.train.business.mapper.TrainCarriageMapper;
@@ -12,6 +14,8 @@ import com.siyi.train.business.pojo.TrainCarriage;
 import com.siyi.train.business.pojo.TrainCarriageExample;
 import com.siyi.train.business.service.TrainCarriageService;
 import com.siyi.train.business.vo.TrainCarriageQueryVo;
+import com.siyi.train.common.constant.ResultCode;
+import com.siyi.train.common.exception.BusinessException;
 import com.siyi.train.common.util.SnowUtil;
 import com.siyi.train.common.vo.PageVo;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +37,19 @@ public class TrainCarriageServiceImpl implements TrainCarriageService {
     public void save(TrainCarriageSaveDto dto) {
         DateTime now = DateTime.now();
         TrainCarriage trainCarriage = BeanUtil.copyProperties(dto, TrainCarriage.class);
+
+        // 自动计算出列数和总座位数
+        List<SeatColEnum> seatColEnums = SeatColEnum.getColsByType(dto.getSeatType());
+        trainCarriage.setColCount(seatColEnums.size());
+        trainCarriage.setSeatCount(trainCarriage.getColCount() * trainCarriage.getRowCount());
+
         if (ObjectUtil.isNull(trainCarriage.getId())) {
+            // 保存之前，先校验唯一键是否存在
+            TrainCarriage trainCarriageDB = this.selectByUnique(dto.getTrainCode(), dto.getIndex());
+            if (ObjectUtil.isNotEmpty(trainCarriageDB)) {
+                throw new BusinessException(ResultCode.BUSINESS_TRAIN_CARRIAGE_INDEX_UNIQUE_ERROR);
+            }
+
             trainCarriage.setId(SnowUtil.getSnowflakeNextId());
             trainCarriage.setCreateTime(now);
             trainCarriage.setUpdateTime(now);
@@ -74,6 +90,28 @@ public class TrainCarriageServiceImpl implements TrainCarriageService {
     @Override
     public void delete(Long id) {
         this.trainCarriageMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public List<TrainCarriage> selectByTrainCode(String trainCode) {
+        TrainCarriageExample trainCarriageExample = new TrainCarriageExample();
+        trainCarriageExample.setOrderByClause("`index` asc");
+        TrainCarriageExample.Criteria criteria = trainCarriageExample.createCriteria();
+        criteria.andTrainCodeEqualTo(trainCode);
+        return this.trainCarriageMapper.selectByExample(trainCarriageExample);
+    }
+
+    private TrainCarriage selectByUnique(String trainCode, Integer index) {
+        TrainCarriageExample trainCarriageExample = new TrainCarriageExample();
+        trainCarriageExample.createCriteria()
+                .andTrainCodeEqualTo(trainCode)
+                .andIndexEqualTo(index);
+        List<TrainCarriage> list = trainCarriageMapper.selectByExample(trainCarriageExample);
+        if (CollUtil.isNotEmpty(list)) {
+            return list.get(0);
+        } else {
+            return null;
+        }
     }
 
 }

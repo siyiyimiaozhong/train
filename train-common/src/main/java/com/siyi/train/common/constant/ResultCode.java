@@ -40,6 +40,15 @@ public enum ResultCode {
     MEMBER_MOBILE_EXIST(false, 20008, "手机号已注册"),
     MEMBER_MOBILE_NOT_EXIST(false, 20009, "请先获取短信验证码"),
     MEMBER_MOBILE_CODE_ERROR(false, 20010, "短信验证码错误"),
+
+    /**
+     * 车站相关错误
+     */
+    BUSINESS_STATION_NAME_UNIQUE_ERROR(false,  30001, "车站已存在"),
+    BUSINESS_TRAIN_CODE_UNIQUE_ERROR(false,  30002, "车次编号已存在"),
+    BUSINESS_TRAIN_STATION_INDEX_UNIQUE_ERROR(false,  30003, "同车次站序已存在"),
+    BUSINESS_TRAIN_STATION_NAME_UNIQUE_ERROR(false,  30004, "同车次站名已存在"),
+    BUSINESS_TRAIN_CARRIAGE_INDEX_UNIQUE_ERROR(false,  30005, "同车次厢号已存在")
     ;
 
     /**

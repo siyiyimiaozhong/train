@@ -23,7 +23,7 @@
 
         <!-- 配置数据源，需要根据自己的项目修改 -->
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                        connectionURL="jdbc:mysql://127.0.0.1/train?characterEncoding=UTF8&amp;autoReconnect=true&amp;serverTimezone=Asia/Shanghai"
+                        connectionURL="jdbc:mysql://127.0.0.1/train_batch?characterEncoding=UTF8&amp;autoReconnect=true&amp;serverTimezone=Asia/Shanghai"
                         userId="train"
                         password="train">
         </jdbcConnection>
@@ -40,7 +40,5 @@
         <javaClientGenerator targetProject="../train-batch/src/main/java"
                              targetPackage="com.siyi.train.batch.mapper"
                              type="XMLMAPPER"/>
-
-        <table tableName="member" domainObjectName="Member"/>
     </context>
 </generatorConfiguration>

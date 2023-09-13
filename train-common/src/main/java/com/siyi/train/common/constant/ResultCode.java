@@ -48,7 +48,19 @@ public enum ResultCode {
     BUSINESS_TRAIN_CODE_UNIQUE_ERROR(false,  30002, "车次编号已存在"),
     BUSINESS_TRAIN_STATION_INDEX_UNIQUE_ERROR(false,  30003, "同车次站序已存在"),
     BUSINESS_TRAIN_STATION_NAME_UNIQUE_ERROR(false,  30004, "同车次站名已存在"),
-    BUSINESS_TRAIN_CARRIAGE_INDEX_UNIQUE_ERROR(false,  30005, "同车次厢号已存在")
+    BUSINESS_TRAIN_CARRIAGE_INDEX_UNIQUE_ERROR(false,  30005, "同车次厢号已存在"),
+
+    /**
+     * 任务相关错误
+     */
+    JOB_TASK_LAUNCH_FAILED(false, 40001, "任务启动失败"),
+    JOB_CREATE_TASK_FAILED_SCHEDULING_EXCEPTION(false, 40002, "创建定时任务失败:调度异常"),
+    JOB_CREATE_TASK_FAILED_TASK_CLASS_NOT_EXIST(false, 40003, "创建定时任务失败：任务类不存在"),
+    JOB_PAUSE_TASK_FAILED_SCHEDULING_EXCEPTION(false, 40004, "暂停定时任务失败:调度异常"),
+    JOB_RESUME_TASK_FAILED_SCHEDULING_EXCEPTION(false, 40005, "重启定时任务失败:调度异常"),
+    JOB_RENEW_TASK_FAILED_SCHEDULING_EXCEPTION(false, 40006, "更新定时任务失败:调度异常"),
+    JOB_DELETE_TASK_FAILED_SCHEDULING_EXCEPTION(false, 40007, "删除定时任务失败:调度异常"),
+    JOB_SELECT_TASK_FAILED_SCHEDULING_EXCEPTION(false, 40008, "查看定时任务失败:调度异常"),
     ;
 
     /**

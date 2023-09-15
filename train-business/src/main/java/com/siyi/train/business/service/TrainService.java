@@ -1,5 +1,6 @@
 package com.siyi.train.business.service;
 
+import com.siyi.train.business.pojo.Train;
 import com.siyi.train.common.vo.PageVo;
 import com.siyi.train.business.dto.TrainQueryDto;
 import com.siyi.train.business.dto.TrainSaveDto;
@@ -23,4 +24,6 @@ public interface TrainService {
     void delete(Long id);
 
     List<TrainQueryVo> queryAll();
+
+    List<Train> selectAll();
 }

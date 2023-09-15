@@ -1,7 +1,9 @@
 package com.siyi.train.business.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -10,13 +12,16 @@ import com.siyi.train.business.dto.DailyTrainSaveDto;
 import com.siyi.train.business.mapper.DailyTrainMapper;
 import com.siyi.train.business.pojo.DailyTrain;
 import com.siyi.train.business.pojo.DailyTrainExample;
-import com.siyi.train.business.service.DailyTrainService;
+import com.siyi.train.business.pojo.Train;
+import com.siyi.train.business.service.*;
 import com.siyi.train.business.vo.DailyTrainQueryVo;
 import com.siyi.train.common.util.SnowUtil;
 import com.siyi.train.common.vo.PageVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -24,9 +29,21 @@ import java.util.List;
 public class DailyTrainServiceImpl implements DailyTrainService {
 
     private final DailyTrainMapper dailyTrainMapper;
+    private final TrainService trainService;
+    private final DailyTrainStationService dailyTrainStationService;
+    private final DailyTrainCarriageService dailyTrainCarriageService;
+    private final DailyTrainSeatService dailyTrainSeatService;
 
-    public DailyTrainServiceImpl(DailyTrainMapper dailyTrainMapper) {
+    public DailyTrainServiceImpl(DailyTrainMapper dailyTrainMapper,
+                                 TrainService trainService,
+                                 DailyTrainStationService dailyTrainStationService,
+                                 DailyTrainCarriageService dailyTrainCarriageService,
+                                 DailyTrainSeatService dailyTrainSeatService) {
         this.dailyTrainMapper = dailyTrainMapper;
+        this.trainService = trainService;
+        this.dailyTrainStationService = dailyTrainStationService;
+        this.dailyTrainCarriageService = dailyTrainCarriageService;
+        this.dailyTrainSeatService = dailyTrainSeatService;
     }
 
     @Override
@@ -76,6 +93,50 @@ public class DailyTrainServiceImpl implements DailyTrainService {
     @Override
     public void delete(Long id) {
         this.dailyTrainMapper.deleteByPrimaryKey(id);
+    }
+
+    @Transactional
+    @Override
+    public void genDaily(Date date) {
+        List<Train> trainList = trainService.selectAll();
+        if (CollUtil.isEmpty(trainList)) {
+            log.info("没有车次基础数据，任务结束");
+            return;
+        }
+
+        for (Train train : trainList) {
+            genDailyTrain(date, train);
+        }
+    }
+
+    public void genDailyTrain(Date date, Train train) {
+        log.info("生成日期【{}】车次【{}】的信息开始", DateUtil.formatDate(date), train.getCode());
+        // 删除该车次已有的数据
+        DailyTrainExample dailyTrainExample = new DailyTrainExample();
+        dailyTrainExample.createCriteria()
+                .andDateEqualTo(date)
+                .andCodeEqualTo(train.getCode());
+        dailyTrainMapper.deleteByExample(dailyTrainExample);
+
+        // 生成该车次的数据
+        DateTime now = DateTime.now();
+        DailyTrain dailyTrain = BeanUtil.copyProperties(train, DailyTrain.class);
+        dailyTrain.setId(SnowUtil.getSnowflakeNextId());
+        dailyTrain.setCreateTime(now);
+        dailyTrain.setUpdateTime(now);
+        dailyTrain.setDate(date);
+        dailyTrainMapper.insert(dailyTrain);
+
+        // 生成该车次的车站数据
+        dailyTrainStationService.genDaily(date, train.getCode());
+
+        // 生成该车次的车厢数据
+        dailyTrainCarriageService.genDaily(date, train.getCode());
+
+        // 生成该车次的座位数据
+        dailyTrainSeatService.genDaily(date, train.getCode());
+
+        log.info("生成日期【{}】车次【{}】的信息结束", DateUtil.formatDate(date), train.getCode());
     }
 
 }

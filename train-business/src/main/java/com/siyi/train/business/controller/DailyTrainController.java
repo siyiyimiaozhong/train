@@ -7,7 +7,10 @@ import com.siyi.train.business.dto.DailyTrainSaveDto;
 import com.siyi.train.business.vo.DailyTrainQueryVo;
 import com.siyi.train.business.service.DailyTrainService;
 import jakarta.validation.Valid;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 @RestController
 @RequestMapping("/admin/daily-train")
@@ -34,6 +37,12 @@ public class DailyTrainController {
     @DeleteMapping("/delete/{id}")
     public Result<Object> delete(@PathVariable Long id) {
         this.dailyTrainService.delete(id);
+        return Result.success();
+    }
+
+    @GetMapping("/gen-daily/{date}")
+    public Result<Object> genDaily(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+        this.dailyTrainService.genDaily(date);
         return Result.success();
     }
 

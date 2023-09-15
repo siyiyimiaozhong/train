@@ -90,6 +90,14 @@ public class TrainStationServiceImpl implements TrainStationService {
         this.trainStationMapper.deleteByPrimaryKey(id);
     }
 
+    @Override
+    public List<TrainStation> selectByTrainCode(String trainCode) {
+        TrainStationExample trainStationExample = new TrainStationExample();
+        trainStationExample.setOrderByClause("`index` asc");
+        trainStationExample.createCriteria().andTrainCodeEqualTo(trainCode);
+        return trainStationMapper.selectByExample(trainStationExample);
+    }
+
     private TrainStation selectByUnique(String trainCode, Integer index) {
         TrainStationExample trainStationExample = new TrainStationExample();
         trainStationExample.createCriteria()

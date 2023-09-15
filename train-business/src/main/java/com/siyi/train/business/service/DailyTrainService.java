@@ -5,6 +5,8 @@ import com.siyi.train.business.dto.DailyTrainQueryDto;
 import com.siyi.train.business.dto.DailyTrainSaveDto;
 import com.siyi.train.business.vo.DailyTrainQueryVo;
 
+import java.util.Date;
+
 /**
 * @ClassName: PassengerService
 * @Auther: Chengxin Zhang
@@ -20,4 +22,9 @@ public interface DailyTrainService {
 
     void delete(Long id);
 
+    /**
+     * 生成某日所有车次信息，包括车次、车站、车厢、座位
+     * @param date
+     */
+    void genDaily(Date date);
 }

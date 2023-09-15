@@ -1,9 +1,12 @@
 package com.siyi.train.business.service;
 
+import com.siyi.train.business.pojo.TrainStation;
 import com.siyi.train.common.vo.PageVo;
 import com.siyi.train.business.dto.TrainStationQueryDto;
 import com.siyi.train.business.dto.TrainStationSaveDto;
 import com.siyi.train.business.vo.TrainStationQueryVo;
+
+import java.util.List;
 
 /**
 * @ClassName: PassengerService
@@ -20,4 +23,5 @@ public interface TrainStationService {
 
     void delete(Long id);
 
+    List<TrainStation> selectByTrainCode(String trainCode);
 }

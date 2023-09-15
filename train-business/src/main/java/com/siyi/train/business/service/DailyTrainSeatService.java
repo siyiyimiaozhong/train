@@ -5,6 +5,8 @@ import com.siyi.train.business.dto.DailyTrainSeatQueryDto;
 import com.siyi.train.business.dto.DailyTrainSeatSaveDto;
 import com.siyi.train.business.vo.DailyTrainSeatQueryVo;
 
+import java.util.Date;
+
 /**
 * @ClassName: PassengerService
 * @Auther: Chengxin Zhang
@@ -20,4 +22,5 @@ public interface DailyTrainSeatService {
 
     void delete(Long id);
 
+    void genDaily(Date date, String code);
 }

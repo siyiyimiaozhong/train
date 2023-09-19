@@ -20,9 +20,9 @@ public enum SeatTypeEnum {
     RW("3", "软卧", new BigDecimal("0.6")),
     YW("4", "硬卧", new BigDecimal("0.5"));
 
-    private String code;
+    private final String code;
 
-    private String desc;
+    private final String desc;
 
     /**
      * 基础票价 N元/公里，0.4即为0.4元/公里

@@ -1,57 +1,27 @@
 package com.siyi.train.business.controller;
 
-import com.siyi.train.business.service.TrainSeatService;
-import com.siyi.train.common.vo.Result;
-import com.siyi.train.common.vo.PageVo;
-import com.siyi.train.business.dto.TrainQueryDto;
-import com.siyi.train.business.dto.TrainSaveDto;
-import com.siyi.train.business.vo.TrainQueryVo;
 import com.siyi.train.business.service.TrainService;
-import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.*;
+import com.siyi.train.business.vo.TrainQueryVo;
+import com.siyi.train.common.vo.Result;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin/train")
+@RequestMapping("/train")
 public class TrainController {
 
     private final TrainService trainService;
-    private final TrainSeatService trainSeatService;
 
-    public TrainController(TrainService trainService, TrainSeatService trainSeatService) {
+    public TrainController(TrainService trainService) {
         this.trainService = trainService;
-        this.trainSeatService = trainSeatService;
     }
-
-    @PostMapping("/save")
-    public Result<Object> save(@Valid @RequestBody TrainSaveDto dto) {
-        this.trainService.save(dto);
-        return Result.success();
-    }
-
-    @GetMapping("/query-list")
-    public Result<PageVo<TrainQueryVo>> queryList(@Valid TrainQueryDto dto) {
-        PageVo<TrainQueryVo> list = this.trainService.queryList(dto);
-        return Result.success(list);
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public Result<Object> delete(@PathVariable Long id) {
-        this.trainService.delete(id);
-        return Result.success();
-    }
-
     @GetMapping("/query-all")
     public Result<List<TrainQueryVo>> queryList() {
         List<TrainQueryVo> list = this.trainService.queryAll();
         return Result.success(list);
-    }
-
-    @GetMapping("/gen-seat/{trainCode}")
-    public Result<Object> genSeat(@PathVariable String trainCode) {
-        this.trainSeatService.genTrainSeat(trainCode);
-        return Result.success();
     }
 
 }

@@ -1,4 +1,4 @@
-package com.siyi.train.business.controller;
+package com.siyi.train.business.controller.admin;
 
 import com.siyi.train.common.vo.Result;
 import com.siyi.train.common.vo.PageVo;
@@ -14,11 +14,11 @@ import java.util.Date;
 
 @RestController
 @RequestMapping("/admin/daily-train")
-public class DailyTrainController {
+public class DailyTrainAdminController {
 
     private final DailyTrainService dailyTrainService;
 
-    public DailyTrainController(DailyTrainService dailyTrainService) {
+    public DailyTrainAdminController(DailyTrainService dailyTrainService) {
         this.dailyTrainService = dailyTrainService;
     }
 

@@ -33,17 +33,20 @@ public class DailyTrainServiceImpl implements DailyTrainService {
     private final DailyTrainStationService dailyTrainStationService;
     private final DailyTrainCarriageService dailyTrainCarriageService;
     private final DailyTrainSeatService dailyTrainSeatService;
+    private final DailyTrainTicketService dailyTrainTicketService;
 
     public DailyTrainServiceImpl(DailyTrainMapper dailyTrainMapper,
                                  TrainService trainService,
                                  DailyTrainStationService dailyTrainStationService,
                                  DailyTrainCarriageService dailyTrainCarriageService,
-                                 DailyTrainSeatService dailyTrainSeatService) {
+                                 DailyTrainSeatService dailyTrainSeatService,
+                                 DailyTrainTicketService dailyTrainTicketService) {
         this.dailyTrainMapper = dailyTrainMapper;
         this.trainService = trainService;
         this.dailyTrainStationService = dailyTrainStationService;
         this.dailyTrainCarriageService = dailyTrainCarriageService;
         this.dailyTrainSeatService = dailyTrainSeatService;
+        this.dailyTrainTicketService = dailyTrainTicketService;
     }
 
     @Override
@@ -135,6 +138,9 @@ public class DailyTrainServiceImpl implements DailyTrainService {
 
         // 生成该车次的座位数据
         dailyTrainSeatService.genDaily(date, train.getCode());
+
+        // 生成车次的余票数据
+        this.dailyTrainTicketService.genDaily(dailyTrain, date, train.getCode());
 
         log.info("生成日期【{}】车次【{}】的信息结束", DateUtil.formatDate(date), train.getCode());
     }

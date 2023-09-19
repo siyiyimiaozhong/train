@@ -1,4 +1,4 @@
-package com.siyi.train.business.controller;
+package com.siyi.train.business.controller.admin;
 
 import com.siyi.train.common.vo.Result;
 import com.siyi.train.common.vo.PageVo;
@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/admin/train-carriage")
-public class TrainCarriageController {
+public class TrainCarriageAdminController {
 
     private final TrainCarriageService trainCarriageService;
 
-    public TrainCarriageController(TrainCarriageService trainCarriageService) {
+    public TrainCarriageAdminController(TrainCarriageService trainCarriageService) {
         this.trainCarriageService = trainCarriageService;
     }
 

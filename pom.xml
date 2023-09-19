@@ -26,7 +26,7 @@
         <java.version>17</java.version>
         <spring-cloud.version>2022.0.4</spring-cloud.version>
         <fastjson.version>1.2.83</fastjson.version>
-        <hutool.version>5.7.22</hutool.version>
+        <hutool.version>5.8.10</hutool.version>
         <mybatis-spring.version>3.0.2</mybatis-spring.version>
         <mysql.version>8.0.22</mysql.version>
         <pagehelper.version>1.4.6</pagehelper.version>

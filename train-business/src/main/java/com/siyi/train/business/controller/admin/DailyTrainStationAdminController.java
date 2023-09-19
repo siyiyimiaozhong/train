@@ -1,4 +1,4 @@
-package com.siyi.train.business.controller;
+package com.siyi.train.business.controller.admin;
 
 import com.siyi.train.common.vo.Result;
 import com.siyi.train.common.vo.PageVo;
@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/admin/daily-train-station")
-public class DailyTrainStationController {
+public class DailyTrainStationAdminController {
 
     private final DailyTrainStationService dailyTrainStationService;
 
-    public DailyTrainStationController(DailyTrainStationService dailyTrainStationService) {
+    public DailyTrainStationAdminController(DailyTrainStationService dailyTrainStationService) {
         this.dailyTrainStationService = dailyTrainStationService;
     }
 

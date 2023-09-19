@@ -5,6 +5,8 @@ import com.siyi.train.member.dto.PassengerQueryDto;
 import com.siyi.train.member.dto.PassengerSaveDto;
 import com.siyi.train.member.vo.PassengerQueryVo;
 
+import java.util.List;
+
 /**
  * @ClassName: PassengerService
  * @Auther: Chengxin Zhang
@@ -18,4 +20,10 @@ public interface PassengerService {
     PageVo<PassengerQueryVo> queryList(PassengerQueryDto dto);
 
     void delete(Long id);
+
+    /**
+     * 查询我的所有乘客
+     * @return
+     */
+    List<PassengerQueryVo> queryMine();
 }

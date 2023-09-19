@@ -10,6 +10,8 @@ import com.siyi.train.member.vo.PassengerQueryVo;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @ClassName: PassengerController
  * @Auther: Chengxin Zhang
@@ -44,4 +46,11 @@ public class PassengerController {
         this.passengerService.delete(id);
         return Result.success();
     }
+
+    @GetMapping("/query-mine")
+    public Result<List<PassengerQueryVo>> queryMine() {
+        List<PassengerQueryVo> list = this.passengerService.queryMine();
+        return Result.success(list);
+    }
+
 }

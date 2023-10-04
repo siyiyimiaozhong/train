@@ -60,12 +60,12 @@ public class ServerGenerator {
         DbUtil.user = userId.getText();
         DbUtil.password = password.getText();
 
-        // 示例：表名 jiawa_test
-        // Domain = JiawaTest
+        // 示例：表名 siyi_test
+        // Domain = SiyiTest
         String Domain = domainObjectName.getText();
-        // domain = jiawaTest
+        // domain = siyiTest
         String domain = Domain.substring(0, 1).toLowerCase() + Domain.substring(1);
-        // do_main = jiawa-test
+        // do_main = siyi-test
         String do_main = tableName.getText().replaceAll("_", "-");
         // 表中文名
         String tableNameCn = DbUtil.getTableComment(tableName.getText());

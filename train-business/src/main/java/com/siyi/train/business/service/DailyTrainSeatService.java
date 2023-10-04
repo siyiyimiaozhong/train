@@ -1,11 +1,13 @@
 package com.siyi.train.business.service;
 
+import com.siyi.train.business.pojo.DailyTrainSeat;
 import com.siyi.train.common.vo.PageVo;
 import com.siyi.train.business.dto.DailyTrainSeatQueryDto;
 import com.siyi.train.business.dto.DailyTrainSeatSaveDto;
 import com.siyi.train.business.vo.DailyTrainSeatQueryVo;
 
 import java.util.Date;
+import java.util.List;
 
 /**
 * @ClassName: PassengerService
@@ -25,4 +27,6 @@ public interface DailyTrainSeatService {
     void genDaily(Date date, String code);
 
     int countSeat(Date date, String trainCode, String code);
+
+    List<DailyTrainSeat> selectByCarriage(Date date, String trainCode, Integer carriageIndex);
 }

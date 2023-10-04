@@ -3,6 +3,7 @@ package com.siyi.train.business.service;
 import com.siyi.train.business.dto.DailyTrainTicketQueryDto;
 import com.siyi.train.business.dto.DailyTrainTicketSaveDto;
 import com.siyi.train.business.pojo.DailyTrain;
+import com.siyi.train.business.pojo.DailyTrainTicket;
 import com.siyi.train.business.vo.DailyTrainTicketQueryVo;
 import com.siyi.train.common.vo.PageVo;
 
@@ -24,4 +25,6 @@ public interface DailyTrainTicketService {
     void delete(Long id);
 
     void genDaily(DailyTrain dailyTrain, Date date, String trainCode);
+
+    DailyTrainTicket selectByUnique(Date date, String trainCode, String start, String end);
 }

@@ -1,11 +1,13 @@
 package com.siyi.train.business.service;
 
+import com.siyi.train.business.pojo.DailyTrainCarriage;
 import com.siyi.train.common.vo.PageVo;
 import com.siyi.train.business.dto.DailyTrainCarriageQueryDto;
 import com.siyi.train.business.dto.DailyTrainCarriageSaveDto;
 import com.siyi.train.business.vo.DailyTrainCarriageQueryVo;
 
 import java.util.Date;
+import java.util.List;
 
 /**
 * @ClassName: PassengerService
@@ -23,4 +25,6 @@ public interface DailyTrainCarriageService {
     void delete(Long id);
 
     void genDaily(Date date, String code);
+
+    List<DailyTrainCarriage> selectByType(Date date, String trainCode, String seatType);
 }

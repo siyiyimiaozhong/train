@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @Version 1.0.0
  */
 
-// @FeignClient("member")
-@FeignClient(name = "member", url = "http://127.0.0.1:8001")
+ @FeignClient("member")
+//@FeignClient(name = "member", url = "http://127.0.0.1:8001")
 public interface MemberFeign {
 
     @GetMapping("/member/feign/ticket/save")

@@ -50,6 +50,7 @@ public enum ResultCode {
     BUSINESS_TRAIN_STATION_NAME_UNIQUE_ERROR(false,  30004, "同车次站名已存在"),
     BUSINESS_TRAIN_CARRIAGE_INDEX_UNIQUE_ERROR(false,  30005, "同车次厢号已存在"),
     BUSINESS_CONFIRM_ORDER_TICKET_COUNT_ERROR(false, 30006, "余票不足"),
+    BUSINESS_CONFIRM_ORDER_EXCEPTION(false, 30007, "服务器忙，请稍后重试"),
 
     /**
      * 任务相关错误

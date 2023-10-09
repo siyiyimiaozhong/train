@@ -12,9 +12,10 @@ import com.siyi.train.business.pojo.DailyTrainTicket;
 import com.siyi.train.business.service.AfterConfirmOrderService;
 import com.siyi.train.common.dto.MemberTicketDto;
 import com.siyi.train.common.vo.Result;
+import io.seata.core.context.RootContext;
+import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -52,9 +53,11 @@ public class AfterConfirmOrderServiceImpl implements AfterConfirmOrderService {
      *  为会员增加购票记录
      *  更新确认订单为成功
      */
-    @Transactional
+//    @Transactional
+    @GlobalTransactional
     @Override
     public void afterDoConfirm(DailyTrainTicket dailyTrainTicket, List<DailyTrainSeat> finalSeatList, List<ConfirmOrderTicketDto> tickets, ConfirmOrder confirmOrder) {
+        log.info("seata全局事务ID:{}", RootContext.getXID());
         for (int j = 0; j < finalSeatList.size(); j++) {
             DailyTrainSeat dailyTrainSeat = finalSeatList.get(j);
             DailyTrainSeat seatForUpdate = new DailyTrainSeat();

@@ -184,7 +184,13 @@ public class ConfirmOrderServiceImpl implements ConfirmOrderService {
             // 余票详情表修改余票
             // 为会员增加购票记录
             // 更新确认订单为成功
-        this.afterConfirmOrderService.afterDoConfirm(dailyTrainTicket, finalSeatList, tickets, confirmOrder);
+        try {
+            this.afterConfirmOrderService.afterDoConfirm(dailyTrainTicket, finalSeatList, tickets, confirmOrder);
+        } catch (Exception e) {
+            log.error("保存购票信息失败", e);
+            throw new BusinessException(ResultCode.BUSINESS_CONFIRM_ORDER_EXCEPTION);
+        }
+
     }
 
     /**

@@ -1,8 +1,10 @@
 package com.siyi.train.common.handler;
 
+import cn.hutool.core.util.StrUtil;
 import com.siyi.train.common.constant.ResultCode;
 import com.siyi.train.common.exception.BusinessException;
 import com.siyi.train.common.vo.Result;
+import io.seata.core.context.RootContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -75,7 +77,12 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ExceptionHandler(Exception.class)
-    public Result<Object> error(HttpServletRequest request, HttpServletResponse response, Exception e) {
+    public Result<Object> error(HttpServletRequest request, HttpServletResponse response, Exception e) throws Exception {
+        // 如果是在一次全局事务里出现异常了，就不要包装返回值，将异常抛给调用方，让调用方回滚事务
+        if (StrUtil.isNotBlank(RootContext.getXID())) {
+            log.info("seata全局事务ID: {}", RootContext.getXID());
+            throw e;
+        }
         log.error("系统异常：", e);
         return Result.error(ResultCode.SERVER_ERROR);
     }

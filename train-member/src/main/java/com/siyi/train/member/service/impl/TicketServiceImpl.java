@@ -14,6 +14,7 @@ import com.siyi.train.member.pojo.Ticket;
 import com.siyi.train.member.pojo.TicketExample;
 import com.siyi.train.member.service.TicketService;
 import com.siyi.train.member.vo.TicketQueryVo;
+import io.seata.core.context.RootContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public void save(MemberTicketDto dto) {
+        log.info("seata全局事务ID save: {}", RootContext.getXID());
         DateTime now = DateTime.now();
         Ticket ticket = BeanUtil.copyProperties(dto, Ticket.class);
         ticket.setId(SnowUtil.getSnowflakeNextId());

@@ -51,6 +51,9 @@ public enum ResultCode {
     BUSINESS_TRAIN_CARRIAGE_INDEX_UNIQUE_ERROR(false,  30005, "同车次厢号已存在"),
     BUSINESS_CONFIRM_ORDER_TICKET_COUNT_ERROR(false, 30006, "余票不足"),
     BUSINESS_CONFIRM_ORDER_EXCEPTION(false, 30007, "服务器忙，请稍后重试"),
+    BUSINESS_CONFIRM_ORDER_LOCK_FAIL(false, 30008, "当前抢票人数过多，请稍候重试"),
+    BUSINESS_CONFIRM_ORDER_FLOW_EXCEPTION(false, 30009, "当前抢票人数太多了，请稍候重试"),
+    BUSINESS_CONFIRM_ORDER_SK_TOKEN_FAIL(false, 30010, "当前抢票人数过多，请5秒后重试"),
 
     /**
      * 任务相关错误

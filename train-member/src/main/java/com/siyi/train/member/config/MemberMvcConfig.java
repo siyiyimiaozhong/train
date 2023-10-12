@@ -33,8 +33,8 @@ public class MemberMvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(this.memberInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns(
-                        "/member/member/send-code",
-                        "/member/member/login"
+                        "/member/send-code",
+                        "/member/login"
                 );
     }
 }

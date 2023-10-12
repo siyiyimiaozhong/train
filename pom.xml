@@ -31,6 +31,7 @@
         <mysql.version>8.0.22</mysql.version>
         <pagehelper.version>1.4.6</pagehelper.version>
         <spring-cloud-alibaba.version>2022.0.0.0</spring-cloud-alibaba.version>
+        <redisson.version>3.21.0</redisson.version>
     </properties>
 
     <dependencies>
@@ -87,6 +88,12 @@
                 <version>${spring-cloud-alibaba.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>${redisson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

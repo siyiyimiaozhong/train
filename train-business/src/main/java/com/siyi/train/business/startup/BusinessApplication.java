@@ -1,5 +1,8 @@
 package com.siyi.train.business.startup;
 
+import com.alibaba.csp.sentinel.slots.block.RuleConstant;
+import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
+import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -10,6 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,6 +36,9 @@ public class BusinessApplication {
         ConfigurableEnvironment environment = applicationContext.getEnvironment();
         log.info("项目启动成功!");
         log.info("项目地址：{}", getProjectAddress(environment));
+
+//        initFlowRules();
+//        log.info("已定义限流规则");
     }
 
     /**
@@ -52,5 +59,16 @@ public class BusinessApplication {
         return ips.stream()
                 .map(ip -> String.format("http://%s:%s%s", ip, port, null == contextPath ? "" : contextPath))
                 .collect(Collectors.joining(" "));
+    }
+
+    private static void initFlowRules(){
+        List<FlowRule> rules = new ArrayList<>();
+        FlowRule rule = new FlowRule();
+        rule.setResource("doConfirm");
+        rule.setGrade(RuleConstant.FLOW_GRADE_QPS);
+        // Set limit QPS to 20.
+        rule.setCount(20);
+        rules.add(rule);
+        FlowRuleManager.loadRules(rules);
     }
 }

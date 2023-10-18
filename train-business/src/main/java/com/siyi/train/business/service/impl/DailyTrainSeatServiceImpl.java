@@ -128,10 +128,14 @@ public class DailyTrainSeatServiceImpl implements DailyTrainSeatService {
     @Override
     public int countSeat(Date date, String trainCode, String seatType) {
         DailyTrainSeatExample example = new DailyTrainSeatExample();
-        example.createCriteria()
-                .andDateEqualTo(date)
-                .andTrainCodeEqualTo(trainCode)
-                .andSeatTypeEqualTo(seatType);
+        DailyTrainSeatExample.Criteria criteria = example.createCriteria();
+        criteria.andDateEqualTo(date)
+                .andTrainCodeEqualTo(trainCode);
+
+        if (StrUtil.isNotBlank(seatType)) {
+            criteria.andSeatTypeEqualTo(seatType);
+        }
+
         long l = this.dailyTrainSeatMapper.countByExample(example);
         if (l == 0L) {
             return -1;

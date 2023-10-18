@@ -40,6 +40,8 @@ public enum ResultCode {
     MEMBER_MOBILE_EXIST(false, 20008, "手机号已注册"),
     MEMBER_MOBILE_NOT_EXIST(false, 20009, "请先获取短信验证码"),
     MEMBER_MOBILE_CODE_ERROR(false, 20010, "短信验证码错误"),
+    MEMBER_VERIFICATION_CODE_EXPIRED(false, 20011, "验证码已过期"),
+    MEMBER_VERIFICATION_CODE_ERROR(false, 20012, "验证码错误"),
 
     /**
      * 车站相关错误

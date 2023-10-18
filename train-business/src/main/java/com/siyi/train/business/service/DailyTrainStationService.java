@@ -6,6 +6,7 @@ import com.siyi.train.business.dto.DailyTrainStationSaveDto;
 import com.siyi.train.business.vo.DailyTrainStationQueryVo;
 
 import java.util.Date;
+import java.util.List;
 
 /**
 * @ClassName: PassengerService
@@ -23,4 +24,20 @@ public interface DailyTrainStationService {
     void delete(Long id);
 
     void genDaily(Date date, String code);
+
+    /**
+     * 按车次查询全部车站
+     * @param date
+     * @param trainCode
+     * @return
+     */
+    long countByTrainCode(Date date, String trainCode);
+
+    /**
+     * 按车次日期查询车站列表，用于界面显示一列车经过的车站
+     * @param date
+     * @param trainCode
+     * @return
+     */
+    List<DailyTrainStationQueryVo> queryByTrain(Date date, String trainCode);
 }

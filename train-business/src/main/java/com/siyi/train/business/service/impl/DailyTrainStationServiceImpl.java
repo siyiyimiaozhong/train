@@ -117,4 +117,22 @@ public class DailyTrainStationServiceImpl implements DailyTrainStationService {
         log.info("生成日期【{}】车次【{}】的车站信息结束", DateUtil.formatDate(date), trainCode);
     }
 
+    @Override
+    public long countByTrainCode(Date date, String trainCode) {
+        DailyTrainStationExample example = new DailyTrainStationExample();
+        example.createCriteria().andDateEqualTo(date).andTrainCodeEqualTo(trainCode);
+        long stationCount = this.dailyTrainStationMapper.countByExample(example);
+        return stationCount;
+    }
+
+    @Override
+    public List<DailyTrainStationQueryVo> queryByTrain(Date date, String trainCode) {
+        DailyTrainStationExample dailyTrainStationExample = new DailyTrainStationExample();
+        dailyTrainStationExample.setOrderByClause("`index` asc");
+        dailyTrainStationExample.createCriteria()
+                .andDateEqualTo(date)
+                .andTrainCodeEqualTo(trainCode);
+        List<DailyTrainStation> list = this.dailyTrainStationMapper.selectByExample(dailyTrainStationExample);
+        return BeanUtil.copyToList(list, DailyTrainStationQueryVo.class);
+    }
 }

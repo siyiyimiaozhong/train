@@ -50,19 +50,22 @@ public class ConfirmOrderServiceImpl implements ConfirmOrderService {
     private final DailyTrainSeatService dailyTrainSeatService;
     private final AfterConfirmOrderService afterConfirmOrderService;
     private final RedissonClient redissonClient;
+    private final SkTokenService skTokenService;
 
     public ConfirmOrderServiceImpl(ConfirmOrderMapper confirmOrderMapper,
                                    DailyTrainTicketService dailyTrainTicketService,
                                    DailyTrainCarriageService dailyTrainCarriageService,
                                    DailyTrainSeatService dailyTrainSeatService,
                                    AfterConfirmOrderService afterConfirmOrderService,
-                                   RedissonClient redissonClient) {
+                                   RedissonClient redissonClient,
+                                   SkTokenService skTokenService) {
         this.confirmOrderMapper = confirmOrderMapper;
         this.dailyTrainTicketService = dailyTrainTicketService;
         this.dailyTrainCarriageService = dailyTrainCarriageService;
         this.dailyTrainSeatService = dailyTrainSeatService;
         this.afterConfirmOrderService = afterConfirmOrderService;
         this.redissonClient = redissonClient;
+        this.skTokenService = skTokenService;
     }
 
     @Override
@@ -112,6 +115,15 @@ public class ConfirmOrderServiceImpl implements ConfirmOrderService {
     @Override
     public void doConfirm(ConfirmOrderDoDto dto) {
         // 省略业务数据校验，如：车次是否存在，余票是否存在，车次是否在有效期内，tickets条数>0，同乘客同车次是否已买过
+
+         // 校验令牌余量
+        boolean validSkToken = this.skTokenService.validSkToken(dto.getDate(), dto.getTrainCode(), LoginMemberContext.getId());
+        if (validSkToken) {
+            log.info("令牌校验通过");
+        } else {
+            log.info("令牌校验不通过");
+            throw new BusinessException(ResultCode.BUSINESS_CONFIRM_ORDER_SK_TOKEN_FAIL);
+        }
 
         String lockKey = RedisKeyPreEnum.CONFIRM_ORDER + "-" + DateUtil.formatDate(dto.getDate()) + "-" + dto.getTrainCode();
         RLock lock = null;

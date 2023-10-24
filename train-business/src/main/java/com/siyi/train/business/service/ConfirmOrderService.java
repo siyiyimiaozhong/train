@@ -1,5 +1,6 @@
 package com.siyi.train.business.service;
 
+import com.siyi.train.business.dto.ConfirmOrderMQDto;
 import com.siyi.train.common.vo.PageVo;
 import com.siyi.train.business.dto.ConfirmOrderQueryDto;
 import com.siyi.train.business.dto.ConfirmOrderDoDto;
@@ -20,5 +21,9 @@ public interface ConfirmOrderService {
 
     void delete(Long id);
 
-    void doConfirm(ConfirmOrderDoDto dto);
+    void doConfirm(ConfirmOrderMQDto dto);
+
+    Integer queryLineCount(Long id);
+
+    Integer cancel(Long id);
 }

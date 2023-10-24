@@ -51,23 +51,27 @@ public enum ResultCode {
     BUSINESS_TRAIN_STATION_INDEX_UNIQUE_ERROR(false,  30003, "同车次站序已存在"),
     BUSINESS_TRAIN_STATION_NAME_UNIQUE_ERROR(false,  30004, "同车次站名已存在"),
     BUSINESS_TRAIN_CARRIAGE_INDEX_UNIQUE_ERROR(false,  30005, "同车次厢号已存在"),
-    BUSINESS_CONFIRM_ORDER_TICKET_COUNT_ERROR(false, 30006, "余票不足"),
-    BUSINESS_CONFIRM_ORDER_EXCEPTION(false, 30007, "服务器忙，请稍后重试"),
-    BUSINESS_CONFIRM_ORDER_LOCK_FAIL(false, 30008, "当前抢票人数过多，请稍候重试"),
-    BUSINESS_CONFIRM_ORDER_FLOW_EXCEPTION(false, 30009, "当前抢票人数太多了，请稍候重试"),
-    BUSINESS_CONFIRM_ORDER_SK_TOKEN_FAIL(false, 30010, "当前抢票人数过多，请5秒后重试"),
+
+    /**
+     * 抢票相关错误
+     */
+    CONFIRM_ORDER_TICKET_COUNT_ERROR(false, 40001, "余票不足"),
+    CONFIRM_ORDER_EXCEPTION(false, 40002, "服务器忙，请稍后重试"),
+    CONFIRM_ORDER_LOCK_FAIL(false, 40003, "当前抢票人数过多，请稍候重试"),
+    CONFIRM_ORDER_FLOW_EXCEPTION(false, 40004, "当前抢票人数太多了，请稍候重试"),
+    CONFIRM_ORDER_SK_TOKEN_FAIL(false, 40005, "当前抢票人数过多，请5秒后重试"),
 
     /**
      * 任务相关错误
      */
-    JOB_TASK_LAUNCH_FAILED(false, 40001, "任务启动失败"),
-    JOB_CREATE_TASK_FAILED_SCHEDULING_EXCEPTION(false, 40002, "创建定时任务失败:调度异常"),
-    JOB_CREATE_TASK_FAILED_TASK_CLASS_NOT_EXIST(false, 40003, "创建定时任务失败：任务类不存在"),
-    JOB_PAUSE_TASK_FAILED_SCHEDULING_EXCEPTION(false, 40004, "暂停定时任务失败:调度异常"),
-    JOB_RESUME_TASK_FAILED_SCHEDULING_EXCEPTION(false, 40005, "重启定时任务失败:调度异常"),
-    JOB_RENEW_TASK_FAILED_SCHEDULING_EXCEPTION(false, 40006, "更新定时任务失败:调度异常"),
-    JOB_DELETE_TASK_FAILED_SCHEDULING_EXCEPTION(false, 40007, "删除定时任务失败:调度异常"),
-    JOB_SELECT_TASK_FAILED_SCHEDULING_EXCEPTION(false, 40008, "查看定时任务失败:调度异常"),
+    JOB_TASK_LAUNCH_FAILED(false, 50001, "任务启动失败"),
+    JOB_CREATE_TASK_FAILED_SCHEDULING_EXCEPTION(false, 50002, "创建定时任务失败:调度异常"),
+    JOB_CREATE_TASK_FAILED_TASK_CLASS_NOT_EXIST(false, 50003, "创建定时任务失败：任务类不存在"),
+    JOB_PAUSE_TASK_FAILED_SCHEDULING_EXCEPTION(false, 50004, "暂停定时任务失败:调度异常"),
+    JOB_RESUME_TASK_FAILED_SCHEDULING_EXCEPTION(false, 50005, "重启定时任务失败:调度异常"),
+    JOB_RENEW_TASK_FAILED_SCHEDULING_EXCEPTION(false, 50006, "更新定时任务失败:调度异常"),
+    JOB_DELETE_TASK_FAILED_SCHEDULING_EXCEPTION(false, 50007, "删除定时任务失败:调度异常"),
+    JOB_SELECT_TASK_FAILED_SCHEDULING_EXCEPTION(false, 50008, "查看定时任务失败:调度异常"),
     ;
 
     /**

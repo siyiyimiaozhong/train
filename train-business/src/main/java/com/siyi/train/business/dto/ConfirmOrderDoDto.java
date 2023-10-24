@@ -15,6 +15,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ConfirmOrderDoDto implements Serializable {
+
+    /**
+     * 会员id
+     */
+    private Long memberId;
     /**
     * 日期
     */

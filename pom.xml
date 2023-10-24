@@ -32,6 +32,7 @@
         <pagehelper.version>1.4.6</pagehelper.version>
         <spring-cloud-alibaba.version>2022.0.0.0</spring-cloud-alibaba.version>
         <redisson.version>3.21.0</redisson.version>
+        <rocketmq.version>2.2.3</rocketmq.version>
     </properties>
 
     <dependencies>
@@ -107,6 +108,12 @@
                         <artifactId>javax.servlet-api</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-spring-boot-starter</artifactId>
+                <version>${rocketmq.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
